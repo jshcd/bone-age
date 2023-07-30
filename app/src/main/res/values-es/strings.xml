@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Edad Ósea</string>
+    <string name="action_about">Acerca de</string>
+
+    <string name="bone_radius">Radio</string>
+    <string name="bone_ulna">Cúbito</string>
+    <string name="bone_first_metacarpal">Primer metacarpiano</string>
+    <string name="bone_third_metacarpal">Tercer metacarpiano</string>
+    <string name="bone_fifth_metacarpal">Quinto metacarpiano</string>
+    <string name="bone_thumb_proximal_phalange">Falange proximal del pulgar</string>
+    <string name="bone_third_finger_proximal_phalange">Falange proximal del tercer dedo</string>
+    <string name="bone_fifth_finger_proximal_phalange">Falange proximal del quinto dedo</string>
+    <string name="bone_third_finger_intermediate_phalange">Falange media del tercer dedo</string>
+    <string name="bone_fifth_finger_intermediate_phalange">Falange media del quinto dedo</string>
+    <string name="bone_thumb_distal_phalange">Falange distal del pulgar</string>
+    <string name="bone_third_finger_distal_phalange">Falange distal del tercer dedo</string>
+    <string name="bone_fifth_finger_distal_phalange">Falange distal del quinto dedo</string>
+
+    <string name="sex_male">Masculino</string>
+    <string name="sex_female">Femenino</string>
+
+    <string name="select_a_value">Seleccione un valor:</string>
+    <string name="next">Siguiente</string>
+    <string name="previous">Anterior</string>
+    <string name="title_activity_result">Resultado</string>
+    <string name="calculate_bone_age">Calcular edad ósea</string>
+    <string name="indicate_patient_sex">Indique el sexo del paciente</string>
+    <string name="patient_bone_age_is">La edad ósea del paciente es de %1$s año/s y %2$s mes/es.</string>
+    <string name="title_activity_image_detail">Detalle para %1$s</string>
+    <string name="title_activity_about">Acerca de</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="error_incorrect_value_selected_for_bone">El valor seleccionado para alguno de los huesos no es correcto.</string>
+    <string name="error_incorrect_sex">El sexo del paciente debe ser Masculino o Femenino.</string>
+    <string name="error_patient_is_adult">El paciente es adulto.</string>
+    
+    <string name="version">Versión: %1$s (%2$d)</string>
+    <string name="about_text">La aplicación "Edad Ósea" ha sido desarrollada por Javier Sánchez Hernández basado en la tesis doctoral de Miguel Ángel Martín (Universidad de Valladolid) y en el artículo de S. Aja&#8211;Fernández, R. de Luis&#8211;García, M. Á. Martín&#8211;Fernández y C. Alberola&#8211;López denominado "A Computational TW3 Classifier for Skeletal Maturity Assessment. A Computing with Words Approach", que fue publicado en el Journal of Biomedical Informatics, Vol. 37, pp. 99&#8211;107 en el año 2004.\n\nEsta aplicación permite a un médico experimentado evaluar por comparación con una radiagorafía cuál es la edad de un paciente pediátrico basándose en el estado de madurez de sus huesos.</string>
+	<string name="logo">Logotipo de la aplicación</string>
+    <string name="new_calculation">Nuevo cálculo</string>
+    <string name="package_not_found">Error: ¡El paquete %1$s no se ha podido encontrar!</string>
+    <string name="estadio_not_possible_for_this_bone">¡No es posible seleccionar este estadio!</string>
+</resources>
