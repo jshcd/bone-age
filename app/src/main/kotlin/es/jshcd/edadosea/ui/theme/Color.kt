@@ -2,11 +2,15 @@ package es.jshcd.edadosea.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
+val PrimaryTopBarColor = Color(0xFF000000)
+val PrimaryVariant = Color(0xFF474747)
+val Secondary = Color(0xFF979797)
+val TopBarTextColor = Color(0xBBFFFFFF)
+val ErrorColor = Color(0xFFB00020)
 
-val Purple80 = Color(0xFFD0BCFF)
-val PurpleGrey80 = Color(0xFFCCC2DC)
-val Pink80 = Color(0xFFEFB8C8)
+val DarkThemeBackground = Color(0xFF212121)
+val DarkThemeText = TopBarTextColor
 
-val Gray50 = Color(0xFF212121)
-val PurpleGrey40 = Color(0xFF625b71)
-val Pink40 = Color(0xFF7D5260)
+val LightThemeBackground = Color(0xFFFFFFFF)
+val LightThemeText = Color(0xBB000000)
+val LightThemeSurface = LightThemeBackground

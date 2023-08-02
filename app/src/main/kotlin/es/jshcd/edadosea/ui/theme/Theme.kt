@@ -12,34 +12,34 @@ import androidx.compose.ui.platform.LocalView
 import androidx.core.view.WindowCompat
 
 private val DarkColors = Colors(
-    primary = Purple80,
-    primaryVariant = Pink80,
-    secondary = PurpleGrey80,
+    primary = PrimaryTopBarColor,
+    primaryVariant = PrimaryVariant,
+    secondary = Secondary,
     secondaryVariant = Color.Gray,
-    background = Color.White,
-    surface = Color.Yellow,
-    error = Color.Red,
-    onPrimary = Color.DarkGray,
-    onSecondary = Color.DarkGray,
-    onBackground = Color.White,
-    onSurface = Color.Green,
-    onError = Color.Magenta,
+    background = DarkThemeBackground,
+    surface = PrimaryTopBarColor,
+    error = ErrorColor,
+    onPrimary = TopBarTextColor,
+    onSecondary = Color.Yellow,
+    onBackground = DarkThemeText,
+    onSurface = PrimaryTopBarColor,
+    onError = ErrorColor,
     isLight = false
 )
 
 private val LightColors = Colors(
-    primary = Gray50,
-    primaryVariant = Pink40,
-    secondary = PurpleGrey40,
+    primary = PrimaryTopBarColor,
+    primaryVariant = PrimaryVariant,
+    secondary = Secondary,
     secondaryVariant = Color.Green,
-    background = Color(0xFFFFFBFE),
-    surface = Color(0xFFFFFBFE),
-    error = Color.Red,
-    onPrimary = Color.White,
+    background = LightThemeBackground,
+    surface = LightThemeSurface,
+    error = ErrorColor,
+    onPrimary = TopBarTextColor,
     onSecondary = Color.White,
-    onBackground = Color(0xFF1C1B1F),
-    onSurface = Color(0xFF1C1B1F),
-    onError = Color.Magenta,
+    onBackground = LightThemeText,
+    onSurface = PrimaryTopBarColor,
+    onError = ErrorColor,
     isLight = true
 )
 
