@@ -65,7 +65,7 @@ private fun ZoomableImage(
     resourceId: Int
 ) {
     val scale = remember { mutableStateOf(1f) }
-    val rotationState = remember { mutableStateOf(1f) }
+    val rotationState = remember { mutableStateOf(0f) }
     Box(
         modifier = Modifier
             .padding(paddingValues)
@@ -74,7 +74,7 @@ private fun ZoomableImage(
             .pointerInput(Unit) {
                 detectTransformGestures { centroid, pan, zoom, rotation ->
                     scale.value *= zoom
-                    rotationState.value += rotation
+//                    rotationState.value += rotation
                 }
             }
     ) {
