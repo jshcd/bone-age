@@ -1,7 +1,6 @@
 package es.jshcd.edadosea.ui.screen
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.gestures.detectTransformGestures
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
@@ -13,8 +12,7 @@ import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
-import androidx.compose.material.icons.filled.Info
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -26,17 +24,17 @@ import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewLightDark
 import es.jshcd.edadosea.R
 import es.jshcd.edadosea.ui.PatientState
 import es.jshcd.edadosea.ui.getBoneById
 import es.jshcd.edadosea.ui.getDrawableIdByBone
+import es.jshcd.edadosea.ui.theme.BoneAgeTheme
 
 @Composable
 fun BoneImageScreen(
     state: PatientState,
-    onBackArrowPressed: () -> Unit,
-    onActionButtonClick: (String) -> Unit
+    onBackArrowPressed: () -> Unit
 ) {
     Scaffold(
         topBar = {
@@ -44,27 +42,12 @@ fun BoneImageScreen(
                 navigationIcon = {
                     IconButton(onClick = onBackArrowPressed) {
                         Icon(
-                            imageVector = Icons.Filled.ArrowBack,
+                            imageVector = Icons.AutoMirrored.Filled.ArrowBack,
                             contentDescription = "Back"
                         )
-
                     }
                 },
-                title = { Text(text = stringResource(id = R.string.title_activity_image_detail, stringResource(id = getBoneById(state.selectedBone)))) },
-                actions = {
-                    IconButton(
-                        onClick = {
-                            onActionButtonClick("About")
-                        }
-                    ) {
-                        Icon(
-                            imageVector = Icons.Filled.Info,
-                            contentDescription = stringResource(
-                                id = R.string.action_about
-                            )
-                        )
-                    }
-                }
+                title = { Text(text = stringResource(id = R.string.title_activity_image_detail, stringResource(id = getBoneById(state.selectedBone)))) }
             )
         },
         content = { paddingValues ->
@@ -110,12 +93,13 @@ private fun ZoomableImage(
     }
 }
 
-@Preview
+@PreviewLightDark
 @Composable
 private fun BoneImageScreenPreview() {
-    BoneImageScreen(
-        state = PatientState(),
-        onBackArrowPressed = {},
-        onActionButtonClick = {}
-    )
+    BoneAgeTheme {
+        BoneImageScreen(
+            state = PatientState(),
+            onBackArrowPressed = {}
+        )
+    }
 }

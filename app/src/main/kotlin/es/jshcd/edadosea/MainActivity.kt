@@ -1,6 +1,5 @@
 package es.jshcd.edadosea
 
-import MainScreen
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -13,6 +12,7 @@ import androidx.navigation.navArgument
 import es.jshcd.edadosea.core.Patient
 import es.jshcd.edadosea.ui.screen.AboutScreen
 import es.jshcd.edadosea.ui.screen.BoneImageScreen
+import es.jshcd.edadosea.ui.screen.MainScreen
 import es.jshcd.edadosea.ui.screen.ResultScreen
 import es.jshcd.edadosea.ui.theme.BoneAgeTheme
 import es.jshcd.edadosea.ui.viewmodel.PatientViewModel
@@ -80,12 +80,7 @@ class MainActivity : ComponentActivity() {
                     BoneAgeTheme {
                         BoneImageScreen(
                             state = uiState.value,
-                            onBackArrowPressed = { navController.popBackStack() },
-                            onActionButtonClick = { selectedAction ->
-                                when(selectedAction) {
-                                    "About" -> navController.navigate(ROUTE_ABOUT)
-                                }
-                            }
+                            onBackArrowPressed = { navController.popBackStack() }
                         )
                     }
                 }

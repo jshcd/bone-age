@@ -1,3 +1,5 @@
+package es.jshcd.edadosea.ui.screen
+
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -18,14 +20,16 @@ import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Info
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.LayoutDirection
+import androidx.compose.ui.unit.dp
 import es.jshcd.edadosea.R
 import es.jshcd.edadosea.core.NUMBER_OF_BONES
 import es.jshcd.edadosea.ui.NavigationButtons
@@ -35,6 +39,7 @@ import es.jshcd.edadosea.ui.getBoneById
 import es.jshcd.edadosea.ui.getDrawableIdByBone
 import es.jshcd.edadosea.ui.getPossiblePatientSexs
 import es.jshcd.edadosea.ui.getPossibleStadiosByBone
+import es.jshcd.edadosea.ui.theme.BoneAgeTheme
 
 @Composable
 fun MainScreen(
@@ -105,13 +110,15 @@ fun MainScreen(
 }
 
 @Composable
-fun BoneScreen(
+private fun BoneScreen(
     modifier: Modifier,
     state: PatientState,
     onShowFullScreenImage: () -> Unit
 ) {
     Column(
-        modifier = modifier,
+        modifier = modifier.padding(
+            8.dp
+        ),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
@@ -128,37 +135,10 @@ fun BoneScreen(
             )
 
             val expanded = remember { mutableStateOf(false) }
-            TextField(
-                modifier = Modifier.clickable(
-                    onClick = {
-                        expanded.value = !expanded.value
-                    }
-                ),
-                value = state.values[state.selectedBone], //state.selectedSex.name,
-                onValueChange = {
-
-                },
-                enabled = false
+            BoneSelector(
+                expanded = expanded,
+                state = state
             )
-
-            DropdownMenu(
-                expanded = expanded.value,
-                onDismissRequest = { },
-
-                ) {
-                val items: List<String> = getPossibleStadiosByBone(state.selectedBone)
-                items.forEach { s ->
-                    DropdownMenuItem(
-                        onClick = {
-                            //selectedValue.value = s
-                            state.values[state.selectedBone] = s
-                            expanded.value = false
-                        }
-                    ) {
-                        Text(text = s)
-                    }
-                }
-            }
         }
 
         Image(
@@ -172,7 +152,44 @@ fun BoneScreen(
 }
 
 @Composable
-fun SexScreen(
+private fun BoneSelector(
+    expanded: MutableState<Boolean>,
+    state: PatientState
+) {
+    Column {
+        TextField(
+            modifier = Modifier.clickable(
+                onClick = {
+                    expanded.value = !expanded.value
+                }
+            ),
+            value = state.values[state.selectedBone], //state.selectedSex.name,
+            onValueChange = {
+
+            },
+            enabled = false
+        )
+        DropdownMenu(
+            expanded = expanded.value,
+            onDismissRequest = { },
+        ) {
+            val items: List<String> = getPossibleStadiosByBone(state.selectedBone)
+            items.forEach { s ->
+                DropdownMenuItem(
+                    onClick = {
+                        state.values[state.selectedBone] = s
+                        expanded.value = false
+                    }
+                ) {
+                    Text(text = s)
+                }
+            }
+        }
+    }
+}
+
+@Composable
+private fun SexScreen(
     modifier: Modifier,
     state: PatientState
 ) {
@@ -186,6 +203,19 @@ fun SexScreen(
         )
 
         val expanded = remember { mutableStateOf(false) }
+        SexSelector(
+            expanded = expanded,
+            state = state
+        )
+    }
+}
+
+@Composable
+private fun SexSelector(
+    expanded: MutableState<Boolean>,
+    state: PatientState
+) {
+    Column {
         TextField(
             modifier = Modifier.clickable(
                 onClick = {
@@ -202,10 +232,9 @@ fun SexScreen(
         DropdownMenu(
             expanded = expanded.value,
             onDismissRequest = { },
-
-            ) {
+        ) {
             val items: List<String> = getPossiblePatientSexs()
-            items.forEachIndexed { index, s ->
+            items.forEach { s ->
                 DropdownMenuItem(
                     onClick = {
                         state.selectedSex = Sex.valueOf(s)
@@ -219,15 +248,54 @@ fun SexScreen(
     }
 }
 
-@Preview(showBackground = true)
+@PreviewLightDark
 @Composable
-private fun MainScreenPreview() {
-    MainScreen(
-        state = PatientState(),
-        onActionButtonClick = {},
-        onPreviousClick = {},
-        onNextClick = {},
-        onCalculateBoneAgeClick = {},
-        onShowFullScreenImage = {}
+private fun BoneSelectorPreview() {
+    val expanded = remember { mutableStateOf(true) }
+    BoneSelector(
+        expanded = expanded,
+        state = PatientState()
     )
+}
+
+@PreviewLightDark
+@Composable
+private fun SexSelectorPreview() {
+    val expanded = remember { mutableStateOf(true) }
+    SexSelector(
+        expanded = expanded,
+        state = PatientState()
+    )
+}
+
+@PreviewLightDark
+@Composable
+private fun MainScreenRadiusPreview() {
+    BoneAgeTheme {
+        MainScreen(
+            state = PatientState(),
+            onActionButtonClick = {},
+            onPreviousClick = {},
+            onNextClick = {},
+            onCalculateBoneAgeClick = {},
+            onShowFullScreenImage = {}
+        )
+    }
+}
+
+@PreviewLightDark
+@Composable
+private fun MainScreenSexSelectionPreview() {
+    BoneAgeTheme {
+        MainScreen(
+            state = PatientState(
+                selectedBone = 13
+            ),
+            onActionButtonClick = {},
+            onPreviousClick = {},
+            onNextClick = {},
+            onCalculateBoneAgeClick = {},
+            onShowFullScreenImage = {}
+        )
+    }
 }

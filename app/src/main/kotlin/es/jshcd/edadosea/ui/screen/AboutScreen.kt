@@ -10,14 +10,16 @@ import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewLightDark
+import androidx.compose.ui.unit.dp
 import es.jshcd.edadosea.R
+import es.jshcd.edadosea.ui.theme.BoneAgeTheme
 
 @Composable
 fun AboutScreen(
@@ -31,7 +33,7 @@ fun AboutScreen(
                 navigationIcon = {
                     IconButton(onClick = onBackArrowPressed) {
                         Icon(
-                            imageVector = Icons.Filled.ArrowBack,
+                            imageVector = Icons.AutoMirrored.Filled.ArrowBack,
                             contentDescription = "Back"
                         )
 
@@ -48,21 +50,27 @@ fun AboutScreen(
                     versionName = versionName,
                     versionNumber = versionNumber
                 )
-                Text(text = stringResource(id = R.string.about_text))
+                Text(
+                    modifier = Modifier.padding(8.dp),
+                    text = stringResource(id = R.string.about_text)
+                )
             }
         }
     )
 }
 
 @Composable
-fun AboutHeader(
+private fun AboutHeader(
     versionName: String,
     versionNumber: Int
 ) {
     Row(
-        verticalAlignment = Alignment.CenterVertically
+        verticalAlignment = Alignment.CenterVertically,
+        modifier = Modifier.padding(top = 8.dp, start = 8.dp, end = 8.dp)
     ) {
-        Column {
+        Column(
+            modifier = Modifier.padding(end = 8.dp)
+        ) {
             Image(
                 painter = painterResource(id = R.drawable.ic_launcher),
                 contentDescription = "logo"
@@ -75,21 +83,14 @@ fun AboutHeader(
     }
 }
 
-@Preview
-@Composable
-fun AboutHeaderPreview() {
-    AboutHeader(
-        versionName = "1.1",
-        versionNumber = 2
-    )
-}
-
-@Preview
+@PreviewLightDark
 @Composable
 fun AboutScreenPreview() {
-    AboutScreen(
-        versionName = "1.1",
-        versionNumber = 2,
-        onBackArrowPressed = {}
-    )
+    BoneAgeTheme {
+        AboutScreen(
+            versionName = "1.1",
+            versionNumber = 2,
+            onBackArrowPressed = {}
+        )
+    }
 }
