@@ -16,14 +16,13 @@ import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Info
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import es.jshcd.edadosea.R
-import es.jshcd.edadosea.ui.calculateNumberOfMonthsFromAge
-import es.jshcd.edadosea.ui.calculateNumberOfYearsFromAge
+import es.jshcd.edadosea.ui.composables.AgeComposable
+import es.jshcd.edadosea.ui.composables.ErrorComposable
 import es.jshcd.edadosea.ui.theme.BoneAgeTheme
 
 @Composable
@@ -73,9 +72,9 @@ fun ResultScreen(
                 )
             ) {
                 if (error != "OK") {
-                    Error()
+                    ErrorComposable()
                 } else {
-                    Age(
+                    AgeComposable(
                         patientAge = patientAge
                     )
                 }
@@ -98,31 +97,6 @@ fun ResultScreen(
             }
         }
     )
-}
-
-@Composable
-private fun Error() {
-    Text(
-        text = stringResource(id = R.string.error_patient_is_adult),
-        color = Color.Red
-    )
-}
-
-@Composable
-private fun Age(
-    patientAge: Float?
-) {
-    if (patientAge != null) {
-        Text(
-            text = stringResource(
-                id = R.string.patient_bone_age_is,
-                calculateNumberOfYearsFromAge(patientAge),
-                calculateNumberOfMonthsFromAge(patientAge)
-            )
-        )
-    } else {
-        Text(text = stringResource(id = R.string.error_the_patient_age_could_not_be_calculated))
-    }
 }
 
 @PreviewLightDark

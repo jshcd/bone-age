@@ -1,44 +1,27 @@
 package es.jshcd.edadosea.ui.screen
 
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.calculateEndPadding
 import androidx.compose.foundation.layout.calculateStartPadding
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.DropdownMenu
-import androidx.compose.material.DropdownMenuItem
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
-import androidx.compose.material.TextField
 import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Info
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.MutableState
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.LayoutDirection
-import androidx.compose.ui.unit.dp
 import es.jshcd.edadosea.R
 import es.jshcd.edadosea.core.NUMBER_OF_BONES
-import es.jshcd.edadosea.ui.NavigationButtons
+import es.jshcd.edadosea.ui.composables.NavigationButtons
 import es.jshcd.edadosea.ui.PatientState
-import es.jshcd.edadosea.ui.Sex
-import es.jshcd.edadosea.ui.getBoneById
-import es.jshcd.edadosea.ui.getDrawableIdByBone
-import es.jshcd.edadosea.ui.getPossiblePatientSexs
-import es.jshcd.edadosea.ui.getPossibleStadiosByBone
+import es.jshcd.edadosea.ui.composables.BoneScreen
+import es.jshcd.edadosea.ui.composables.SexScreen
 import es.jshcd.edadosea.ui.theme.BoneAgeTheme
 
 @Composable
@@ -106,165 +89,6 @@ fun MainScreen(
                 onCalculateBoneAgeClick = onCalculateBoneAgeClick
             )
         }
-    )
-}
-
-@Composable
-private fun BoneScreen(
-    modifier: Modifier,
-    state: PatientState,
-    onShowFullScreenImage: () -> Unit
-) {
-    Column(
-        modifier = modifier.padding(
-            8.dp
-        ),
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-
-        Text(
-            text = stringResource(id = getBoneById(state.selectedBone))
-        )
-
-        Row(
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Text(
-                text = stringResource(id = R.string.select_a_value)
-            )
-
-            val expanded = remember { mutableStateOf(false) }
-            BoneSelector(
-                expanded = expanded,
-                state = state
-            )
-        }
-
-        Image(
-            modifier = Modifier.clickable {
-                onShowFullScreenImage()
-            },
-            painter = painterResource(id = getDrawableIdByBone(state.selectedBone)),
-            contentDescription = "logo"
-        )
-    }
-}
-
-@Composable
-private fun BoneSelector(
-    expanded: MutableState<Boolean>,
-    state: PatientState
-) {
-    Column {
-        TextField(
-            modifier = Modifier.clickable(
-                onClick = {
-                    expanded.value = !expanded.value
-                }
-            ),
-            value = state.values[state.selectedBone], //state.selectedSex.name,
-            onValueChange = {
-
-            },
-            enabled = false
-        )
-        DropdownMenu(
-            expanded = expanded.value,
-            onDismissRequest = { },
-        ) {
-            val items: List<String> = getPossibleStadiosByBone(state.selectedBone)
-            items.forEach { s ->
-                DropdownMenuItem(
-                    onClick = {
-                        state.values[state.selectedBone] = s
-                        expanded.value = false
-                    }
-                ) {
-                    Text(text = s)
-                }
-            }
-        }
-    }
-}
-
-@Composable
-private fun SexScreen(
-    modifier: Modifier,
-    state: PatientState
-) {
-    Column(
-        modifier = modifier,
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        Text(
-            text = stringResource(id = R.string.indicate_patient_sex)
-        )
-
-        val expanded = remember { mutableStateOf(false) }
-        SexSelector(
-            expanded = expanded,
-            state = state
-        )
-    }
-}
-
-@Composable
-private fun SexSelector(
-    expanded: MutableState<Boolean>,
-    state: PatientState
-) {
-    Column {
-        TextField(
-            modifier = Modifier.clickable(
-                onClick = {
-                    expanded.value = !expanded.value
-                }
-            ),
-            value = state.selectedSex.name,
-            onValueChange = {
-
-            },
-            enabled = false
-        )
-
-        DropdownMenu(
-            expanded = expanded.value,
-            onDismissRequest = { },
-        ) {
-            val items: List<String> = getPossiblePatientSexs()
-            items.forEach { s ->
-                DropdownMenuItem(
-                    onClick = {
-                        state.selectedSex = Sex.valueOf(s)
-                        expanded.value = false
-                    }
-                ) {
-                    Text(text = s)
-                }
-            }
-        }
-    }
-}
-
-@PreviewLightDark
-@Composable
-private fun BoneSelectorPreview() {
-    val expanded = remember { mutableStateOf(true) }
-    BoneSelector(
-        expanded = expanded,
-        state = PatientState()
-    )
-}
-
-@PreviewLightDark
-@Composable
-private fun SexSelectorPreview() {
-    val expanded = remember { mutableStateOf(true) }
-    SexSelector(
-        expanded = expanded,
-        state = PatientState()
     )
 }
 
