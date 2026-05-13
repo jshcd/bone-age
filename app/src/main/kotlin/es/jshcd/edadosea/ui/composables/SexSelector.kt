@@ -14,7 +14,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import es.jshcd.edadosea.ui.PatientState
 import es.jshcd.edadosea.ui.Sex
-import es.jshcd.edadosea.ui.getPossiblePatientSexs
+import es.jshcd.edadosea.ui.getLabel
 
 @Composable
 fun SexSelector(
@@ -28,7 +28,7 @@ fun SexSelector(
                     expanded.value = !expanded.value
                 }
             ),
-            value = state.selectedSex.name,
+            value = state.selectedSex.getLabel(),
             onValueChange = {
 
             },
@@ -39,15 +39,14 @@ fun SexSelector(
             expanded = expanded.value,
             onDismissRequest = { },
         ) {
-            val items: List<String> = getPossiblePatientSexs()
-            items.forEach { s ->
+            Sex.entries.forEach { sex ->
                 DropdownMenuItem(
                     onClick = {
-                        state.selectedSex = Sex.valueOf(s)
+                        state.selectedSex = sex
                         expanded.value = false
                     }
                 ) {
-                    Text(text = s)
+                    Text(text = sex.getLabel())
                 }
             }
         }
