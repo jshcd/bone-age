@@ -4,9 +4,12 @@ import androidx.compose.foundation.layout.calculateEndPadding
 import androidx.compose.foundation.layout.calculateStartPadding
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
+import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
@@ -16,6 +19,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.LayoutDirection
+import androidx.compose.ui.unit.dp
 import es.jshcd.edadosea.R
 import es.jshcd.edadosea.core.NUMBER_OF_BONES
 import es.jshcd.edadosea.ui.composables.NavigationButtons
@@ -35,23 +39,27 @@ fun MainScreen(
 ) {
     Scaffold(
         topBar = {
-            TopAppBar(
-                title = {Text(text = stringResource(id = R.string.app_name))},
-                actions = {
-                    IconButton(
-                        onClick = {
-                            onActionButtonClick("About")
-                        }
-                    ) {
-                        Icon(
-                            imageVector = Icons.Filled.Info,
-                            contentDescription = stringResource(
-                                id = R.string.action_about
+            Surface(color = MaterialTheme.colors.primary) {
+                TopAppBar(
+                    modifier = Modifier.statusBarsPadding(),
+                    title = { Text(text = stringResource(id = R.string.app_name)) },
+                    actions = {
+                        IconButton(
+                            onClick = {
+                                onActionButtonClick("About")
+                            }
+                        ) {
+                            Icon(
+                                imageVector = Icons.Filled.Info,
+                                contentDescription = stringResource(
+                                    id = R.string.action_about
+                                )
                             )
-                        )
-                    }
-                }
-            )
+                        }
+                    },
+                    elevation = 0.dp
+                )
+            }
         },
         content = { paddingValues ->
             if (state.selectedBone < NUMBER_OF_BONES) {

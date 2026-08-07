@@ -1,15 +1,20 @@
 package es.jshcd.edadosea.ui.screen
 
+import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
+import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.PreviewLightDark
+import androidx.compose.ui.unit.dp
 import es.jshcd.edadosea.R
 import es.jshcd.edadosea.ui.PatientState
 import es.jshcd.edadosea.ui.composables.ZoomableImage
@@ -24,17 +29,28 @@ fun BoneImageScreen(
 ) {
     Scaffold(
         topBar = {
-            TopAppBar(
-                navigationIcon = {
-                    IconButton(onClick = onBackArrowPressed) {
-                        Icon(
-                            imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                            contentDescription = "Back"
+            Surface(color = MaterialTheme.colors.primary) {
+                TopAppBar(
+                    modifier = Modifier.statusBarsPadding(),
+                    navigationIcon = {
+                        IconButton(onClick = onBackArrowPressed) {
+                            Icon(
+                                imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                                contentDescription = "Back"
+                            )
+                        }
+                    },
+                    title = {
+                        Text(
+                            text = stringResource(
+                                id = R.string.title_activity_image_detail,
+                                stringResource(id = getBoneById(state.selectedBone))
+                            )
                         )
-                    }
-                },
-                title = { Text(text = stringResource(id = R.string.title_activity_image_detail, stringResource(id = getBoneById(state.selectedBone)))) }
-            )
+                    },
+                    elevation = 0.dp
+                )
+            }
         },
         content = { paddingValues ->
             ZoomableImage(

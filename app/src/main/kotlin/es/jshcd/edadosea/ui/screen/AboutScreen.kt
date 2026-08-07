@@ -2,9 +2,12 @@ package es.jshcd.edadosea.ui.screen
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
+import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
@@ -26,18 +29,22 @@ fun AboutScreen(
 ) {
     Scaffold(
         topBar = {
-            TopAppBar(
-                navigationIcon = {
-                    IconButton(onClick = onBackArrowPressed) {
-                        Icon(
-                            imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                            contentDescription = "Back"
-                        )
+            Surface(color = MaterialTheme.colors.primary) {
+                TopAppBar(
+                    modifier = Modifier.statusBarsPadding(),
+                    navigationIcon = {
+                        IconButton(onClick = onBackArrowPressed) {
+                            Icon(
+                                imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                                contentDescription = "Back"
+                            )
 
-                    }
-                },
-                title = { Text(text = stringResource(id = R.string.title_activity_about)) }
-            )
+                        }
+                    },
+                    title = { Text(text = stringResource(id = R.string.title_activity_about)) },
+                    elevation = 0.dp
+                )
+            }
         },
         content = { paddingValues ->
             Column(

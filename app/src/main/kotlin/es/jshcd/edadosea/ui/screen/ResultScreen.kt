@@ -4,11 +4,15 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.calculateEndPadding
 import androidx.compose.foundation.layout.calculateStartPadding
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.material.Button
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
+import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
@@ -35,32 +39,36 @@ fun ResultScreen(
 ) {
     Scaffold(
         topBar = {
-            TopAppBar(
-                navigationIcon = {
-                    IconButton(onClick = onBackArrowPressed) {
-                        Icon(
-                            imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                            contentDescription = "Back"
-                        )
-
-                    }
-                },
-                title = { Text(text = stringResource(id = R.string.title_activity_result)) },
-                actions = {
-                    IconButton(
-                        onClick = {
-                            onActionButtonClick("About")
-                        }
-                    ) {
-                        Icon(
-                            imageVector = Icons.Filled.Info,
-                            contentDescription = stringResource(
-                                id = R.string.action_about
+            Surface(color = MaterialTheme.colors.primary) {
+                TopAppBar(
+                    modifier = Modifier.statusBarsPadding(),
+                    navigationIcon = {
+                        IconButton(onClick = onBackArrowPressed) {
+                            Icon(
+                                imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                                contentDescription = "Back"
                             )
-                        )
-                    }
-                }
-            )
+
+                        }
+                    },
+                    title = { Text(text = stringResource(id = R.string.title_activity_result)) },
+                    actions = {
+                        IconButton(
+                            onClick = {
+                                onActionButtonClick("About")
+                            }
+                        ) {
+                            Icon(
+                                imageVector = Icons.Filled.Info,
+                                contentDescription = stringResource(
+                                    id = R.string.action_about
+                                )
+                            )
+                        }
+                    },
+                    elevation = 0.dp
+                )
+            }
         },
         content = { paddingValues ->
             Column(
@@ -84,6 +92,7 @@ fun ResultScreen(
             if (error == "OK") {
                 Column(
                     modifier = Modifier.fillMaxWidth()
+                        .navigationBarsPadding()
                         .padding(8.dp)
                 ) {
                     Button(
