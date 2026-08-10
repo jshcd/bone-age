@@ -31,6 +31,16 @@ fun NavigationButtons(
             .navigationBarsPadding()
             .padding(8.dp)
     ) {
+        if (state.selectedBone == NUMBER_OF_BONES) {
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.Center
+            ) {
+                CalculateBoneAgeButton(
+                    onClick = onCalculateBoneAgeClick
+                )
+            }
+        }
         Row(
             modifier = Modifier.fillMaxWidth()
         ) {
@@ -53,16 +63,6 @@ fun NavigationButtons(
                         onClick = onNextClick
                     )
                 }
-            }
-        }
-        if (state.selectedBone == NUMBER_OF_BONES) {
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.Center
-            ) {
-                CalculateBoneAgeButton(
-                    onClick = onCalculateBoneAgeClick
-                )
             }
         }
     }

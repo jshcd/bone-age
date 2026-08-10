@@ -9,17 +9,13 @@ import es.jshcd.edadosea.ui.calculateNumberOfYearsFromAge
 
 @Composable
 fun AgeComposable(
-    patientAge: Float?
+    patientAge: Float
 ) {
-    if (patientAge != null) {
-        Text(
-            text = stringResource(
-                id = R.string.patient_bone_age_is,
-                calculateNumberOfYearsFromAge(patientAge),
-                calculateNumberOfMonthsFromAge(patientAge)
-            )
+    Text(
+        text = stringResource(
+            id = R.string.patient_bone_age_is,
+            calculateNumberOfYearsFromAge(patientAge),
+            calculateNumberOfMonthsFromAge(patientAge)
         )
-    } else {
-        Text(text = stringResource(id = R.string.error_the_patient_age_could_not_be_calculated))
-    }
+    )
 }

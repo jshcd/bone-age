@@ -1,5 +1,6 @@
 package es.jshcd.edadosea.ui.screen
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.calculateEndPadding
 import androidx.compose.foundation.layout.calculateStartPadding
@@ -19,6 +20,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Info
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.PreviewLightDark
@@ -72,19 +74,30 @@ fun ResultScreen(
         },
         content = { paddingValues ->
             Column(
-                modifier = Modifier.padding(
-                    top = paddingValues.calculateTopPadding() + 8.dp,
-                    bottom = paddingValues.calculateBottomPadding() + 8.dp,
-                    start = paddingValues.calculateStartPadding(LayoutDirection.Ltr) + 8.dp,
-                    end = paddingValues.calculateEndPadding(LayoutDirection.Ltr) + 8.dp
-                )
+                modifier = Modifier.fillMaxWidth()
+                    .padding(
+                        top = paddingValues.calculateTopPadding() + 8.dp,
+                        bottom = paddingValues.calculateBottomPadding() + 8.dp,
+                        start = paddingValues.calculateStartPadding(LayoutDirection.Ltr) + 8.dp,
+                        end = paddingValues.calculateEndPadding(LayoutDirection.Ltr) + 8.dp
+                    ),
+                verticalArrangement = Arrangement.Center,
+                horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 if (error != "OK") {
-                    ErrorComposable()
-                } else {
-                    AgeComposable(
-                        patientAge = patientAge
+                    ErrorComposable(
+                        error = stringResource(id = R.string.error_patient_is_adult)
                     )
+                } else {
+                    if (patientAge == null) {
+                        ErrorComposable(
+                            error = stringResource(id = R.string.error_the_patient_age_could_not_be_calculated)
+                        )
+                    } else {
+                        AgeComposable(
+                            patientAge = patientAge
+                        )
+                    }
                 }
             }
         },
