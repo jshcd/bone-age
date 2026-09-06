@@ -16,8 +16,7 @@
             android:name="es.jshcd.edadosea.MainActivity"
             android:exported="true"
             android:label="@string/app_name"
-            android:theme="@style/Theme.BoneAge"
-            android:screenOrientation="landscape">
+            android:theme="@style/Theme.BoneAge">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

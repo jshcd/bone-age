@@ -2,9 +2,9 @@ package es.jshcd.edadosea
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
-import androidx.activity.SystemBarStyle
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.activity.viewModels
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.graphics.toArgb
 import es.jshcd.edadosea.ui.theme.PrimaryTopBarColor
@@ -27,13 +27,11 @@ const val ROUTE_RESULT = "result"
 const val ROUTE_BONE_IMAGE = "boneImage"
 
 class MainActivity : ComponentActivity() {
+    private val viewModel: PatientViewModel by viewModels()
+
     override fun onCreate(savedInstanceState: Bundle?) {
-        enableEdgeToEdge(
-            statusBarStyle = SystemBarStyle.dark(PrimaryTopBarColor.toArgb()),
-            navigationBarStyle = SystemBarStyle.dark(PrimaryTopBarColor.toArgb())
-        )
+        enableEdgeToEdge()
         super.onCreate(savedInstanceState)
-        val viewModel = PatientViewModel()
 
         setContent {
             val uiState = viewModel.uiState.collectAsState()

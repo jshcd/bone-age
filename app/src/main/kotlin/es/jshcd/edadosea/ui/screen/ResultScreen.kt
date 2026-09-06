@@ -2,12 +2,16 @@ package es.jshcd.edadosea.ui.screen
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.WindowInsetsSides
+import androidx.compose.foundation.layout.asPaddingValues
 import androidx.compose.foundation.layout.calculateEndPadding
 import androidx.compose.foundation.layout.calculateStartPadding
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.navigationBarsPadding
+import androidx.compose.foundation.layout.only
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.statusBarsPadding
+import androidx.compose.foundation.layout.safeDrawing
+import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.material.Button
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
@@ -43,7 +47,9 @@ fun ResultScreen(
         topBar = {
             Surface(color = MaterialTheme.colors.primary) {
                 TopAppBar(
-                    modifier = Modifier.statusBarsPadding(),
+                    modifier = Modifier.windowInsetsPadding(
+                        WindowInsets.safeDrawing.only(WindowInsetsSides.Horizontal + WindowInsetsSides.Top)
+                    ),
                     navigationIcon = {
                         IconButton(onClick = onBackArrowPressed) {
                             Icon(
@@ -73,13 +79,14 @@ fun ResultScreen(
             }
         },
         content = { paddingValues ->
+            val horizontalPadding = WindowInsets.safeDrawing.only(WindowInsetsSides.Horizontal).asPaddingValues()
             Column(
                 modifier = Modifier.fillMaxWidth()
                     .padding(
                         top = paddingValues.calculateTopPadding() + 8.dp,
                         bottom = paddingValues.calculateBottomPadding() + 8.dp,
-                        start = paddingValues.calculateStartPadding(LayoutDirection.Ltr) + 8.dp,
-                        end = paddingValues.calculateEndPadding(LayoutDirection.Ltr) + 8.dp
+                        start = paddingValues.calculateStartPadding(LayoutDirection.Ltr) + horizontalPadding.calculateStartPadding(LayoutDirection.Ltr) + 8.dp,
+                        end = paddingValues.calculateEndPadding(LayoutDirection.Ltr) + horizontalPadding.calculateEndPadding(LayoutDirection.Ltr) + 8.dp
                     ),
                 verticalArrangement = Arrangement.Center,
                 horizontalAlignment = Alignment.CenterHorizontally
@@ -105,7 +112,9 @@ fun ResultScreen(
             if (error == "OK") {
                 Column(
                     modifier = Modifier.fillMaxWidth()
-                        .navigationBarsPadding()
+                        .windowInsetsPadding(
+                            WindowInsets.safeDrawing.only(WindowInsetsSides.Horizontal + WindowInsetsSides.Bottom)
+                        )
                         .padding(8.dp)
                 ) {
                     Button(

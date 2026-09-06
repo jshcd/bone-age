@@ -1,10 +1,17 @@
 package es.jshcd.edadosea.ui.screen
 
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.WindowInsetsSides
+import androidx.compose.foundation.layout.asPaddingValues
 import androidx.compose.foundation.layout.calculateEndPadding
 import androidx.compose.foundation.layout.calculateStartPadding
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.only
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.safeDrawing
 import androidx.compose.foundation.layout.statusBarsPadding
+import androidx.compose.foundation.layout.union
+import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.material.MaterialTheme
@@ -41,7 +48,9 @@ fun MainScreen(
         topBar = {
             Surface(color = MaterialTheme.colors.primary) {
                 TopAppBar(
-                    modifier = Modifier.statusBarsPadding(),
+                    modifier = Modifier.windowInsetsPadding(
+                        WindowInsets.safeDrawing.only(WindowInsetsSides.Horizontal + WindowInsetsSides.Top)
+                    ),
                     title = { Text(text = stringResource(id = R.string.app_name)) },
                     actions = {
                         IconButton(
@@ -62,6 +71,7 @@ fun MainScreen(
             }
         },
         content = { paddingValues ->
+            val horizontalPadding = WindowInsets.safeDrawing.only(WindowInsetsSides.Horizontal).asPaddingValues()
             if (state.selectedBone < NUMBER_OF_BONES) {
                 BoneScreen(
                     modifier = Modifier
@@ -69,8 +79,8 @@ fun MainScreen(
                         .padding(
                             top = paddingValues.calculateTopPadding(),
                             bottom = paddingValues.calculateBottomPadding(),
-                            start = paddingValues.calculateStartPadding(LayoutDirection.Ltr),
-                            end = paddingValues.calculateEndPadding(LayoutDirection.Ltr)
+                            start = paddingValues.calculateStartPadding(LayoutDirection.Ltr) + horizontalPadding.calculateStartPadding(LayoutDirection.Ltr),
+                            end = paddingValues.calculateEndPadding(LayoutDirection.Ltr) + horizontalPadding.calculateEndPadding(LayoutDirection.Ltr)
                         ),
                     state = state,
                     onShowFullScreenImage = onShowFullScreenImage
@@ -82,8 +92,8 @@ fun MainScreen(
                         .padding(
                             top = paddingValues.calculateTopPadding(),
                             bottom = paddingValues.calculateBottomPadding(),
-                            start = paddingValues.calculateStartPadding(LayoutDirection.Ltr),
-                            end = paddingValues.calculateEndPadding(LayoutDirection.Ltr)
+                            start = paddingValues.calculateStartPadding(LayoutDirection.Ltr) + horizontalPadding.calculateStartPadding(LayoutDirection.Ltr),
+                            end = paddingValues.calculateEndPadding(LayoutDirection.Ltr) + horizontalPadding.calculateEndPadding(LayoutDirection.Ltr)
                         ),
                     state = state
                 )
